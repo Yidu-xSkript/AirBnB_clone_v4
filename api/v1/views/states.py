@@ -68,10 +68,10 @@ def put_state_id(state_id):
         abort(400, "Not a JSON")
     state = storage.get('State', state_id)
     if not state:
-        abort(404)
-    ignore_keys = ['id', 'created_at', 'updated_at']
+        abort(404) # set 404
+    ignore_keys = ['id', 'created_at', 'updated_at'] # Ignore keys
     for key, value in body.items():
         if key not in ignore_keys:
-            setattr(state, key, value)
+            setattr(state, key, value) # to_dict x ignore keys
     storage.save()
     return jsonify(state.to_dict()), 200
