@@ -8,6 +8,7 @@ from models import storage
 from api.v1.views import app_views
 from models.state import State
 
+
 app = Flask(__name__)
 
 
@@ -69,9 +70,9 @@ def put_state_id(state_id):
     state = storage.get('State', state_id)
     if not state:
         abort(404) # set 404
-    ignore_keys = ['id', 'created_at', 'updated_at'] # Ignore keys
+    ignore_keys = ['id', 'created_at', 'updated_at']
     for key, value in body.items():
         if key not in ignore_keys:
-            setattr(state, key, value) # to_dict x ignore keys
+            setattr(state, key, value)
     storage.save()
     return jsonify(state.to_dict()), 200
